@@ -2,7 +2,9 @@ PYTHON=python3
 VENV=venv
 ACTIVATE=. $(VENV)/bin/activate;
 
-.PHONY: venv install proto server client clean distclean
+.PHONY: all venv install proto server client clean distclean
+
+all: install proto server
 
 venv:
 	$(PYTHON) -m venv $(VENV)
