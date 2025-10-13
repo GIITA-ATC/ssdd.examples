@@ -8,7 +8,7 @@ import hello_pb2_grpc
 
 
 if len(sys.argv) != 3:
-    print("usage: ./client.py <host> <port>")
+    print("usage: ./client.py <server> <port>")
     sys.exit(1)
 
 server = sys.argv[1]
