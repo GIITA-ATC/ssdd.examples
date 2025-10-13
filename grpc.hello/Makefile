@@ -2,9 +2,9 @@ PYTHON=python3
 VENV=venv
 ACTIVATE=. $(VENV)/bin/activate;
 
-.PHONY: all venv install proto server client clean distclean
+.PHONY: all install proto run-server run-client clean distclean
 
-all: install proto server
+all: install proto
 
 venv:
 	$(PYTHON) -m venv $(VENV)
@@ -16,10 +16,10 @@ install: venv
 proto:
 	$(ACTIVATE) python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. hello.proto
 
-server:
+run-server:
 	$(ACTIVATE) python server.py
 
-client:
+run-client:
 	$(ACTIVATE) python client.py localhost 2000
 
 clean:
