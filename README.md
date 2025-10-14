@@ -21,7 +21,7 @@ pip install -r requirements.txt
 ### 3. Run the example code
 Run the example code as specified in the example's README or Makefile.
 
-## Exit and(or remove) the virtual environment
+## Exit (and remove) the virtual environment
 
 To exit the virtual environment, run:
 
