@@ -1,24 +1,28 @@
-Depends
--------
+# REST API with Flask (Python)
+This example demonstrates how a simple REST API can be implemented using Flask in Python.
 
-- python3-flask-restful
-- python3-requests
+Following steps can be followed to set up and run the example. A Makefile is also provided with necessary commands.
 
+### 1. Setup virtualenv
+Follow the instruction provided in the root README.md to create and activate a virtual environment.
 
-Run server
-----------
+### 2. Run the Flask server
 
-$ ./server.py
+```bash
+python server.py
+```
 
+### 3. Run the client
+You can use your web browser to access the REST API endpoints. For example, if the server is running on `localhost` and port `5000`, you can access:
 
-Run python client
------------------
+- `http://localhost:5000/`
 
-$ ./client.py
+This will show a device list (GET).
 
+Now, run the python client provided to update a device (PUT):
 
-Run browser
------------
+```bash
+python client.py
+```
 
-(run client before)
-$ firefox localhost:5000/device1
+Refresh the browser to see the updated device list.
