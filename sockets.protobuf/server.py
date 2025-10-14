@@ -4,7 +4,7 @@ import socket
 from sensor_pb2 import Reading
 
 sock = socket.socket(type=socket.SOCK_DGRAM)
-sock.bind(('', 1234))
+sock.bind(('', 10001))
 reading = Reading()
 
 while True:

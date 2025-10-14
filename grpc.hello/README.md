@@ -1,5 +1,5 @@
-# gRPC & Protocol Buffers Example (Python)
-This example demonstrates a simple gRPC server and client in Python using Protocol Buffers.
+# Protocol Buffers Example (Python)
+This example demonstrates a simple server and client in Python using Protocol Buffers and sockets.
 
 Following steps can be followed to set up and run the example. A Makefile is also provided with necessary commands.
 
@@ -9,7 +9,7 @@ Follow the instruction provided in the root README.md to create and activate a v
 ### 2. Compile the `.proto` file
 
 ```bash
-python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. hello.proto
+python -m grpc_tools.protoc -I. --python_out=. sensor.proto
 ```
 
 ### 3. Run the gRPC server
@@ -21,5 +21,5 @@ python server.py
 ### 4. Run the client (in another terminal)
 
 ```bash
-python client.py <host> <port>
+python client.py <host>
 ```
