@@ -1,11 +1,18 @@
-all:
-	javac *.java
+.PHONY: all run-registry run-server run-client clean
 
-run-server: Server.class Hello.class
-	java -classpath . -Djava.rmi.server.codebase=file:./ Server
+all: Server.class Client.class Hello.class
 
-run-client: Client.class Hello.class
-	java  -classpath . Client localhost
+%.class: %.java
+	javac $<
+
+run-registry:
+	rmiregistry
+
+run-server:
+	java -classpath . -Djava.rmi.server.codebase=file:./ Server 9000
+
+run-client:
+	java -classpath . Client localhost 9000
 
 clean:
-	$(RM) *~ *.class
+	$(RM) *.class *~
