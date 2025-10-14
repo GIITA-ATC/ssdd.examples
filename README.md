@@ -1,7 +1,7 @@
 # Examples
 Distributed Systems subject examples.
 
-Several python examples in this repository use Python's `venv` module to create isolated environments. This ensures that dependencies are managed separately for each project. For theese examples, follow the steps below to set up and run the code (a Makefile is also provided in each example directory for convenience).
+Several python examples in this repository use Python's `venv` module to create isolated environments. This ensures that dependencies are managed separately for each project. For these examples, follow the steps below to set up and run the code (a Makefile is also provided in each example directory for convenience).
 
 ### 1. Create and activate a virtual environment
 
