@@ -1,29 +1,31 @@
-PYTHON=python3
-VENV=venv
-ACTIVATE=. $(VENV)/bin/activate;
+VENV        := .venv
+PY          := $(VENV)/bin/python
+PIP         := $(VENV)/bin/pip
+PROTO_NAME  := hello
+GEN_PY      := $(PROTO_NAME)_pb2.py $(PROTO_NAME)_pb2_grpc.py
 
-.PHONY: all install proto run-server run-client clean distclean
+.PHONY: all install run-server run-client clean distclean
 
-all: install proto
+all: install $(GEN_PY)
 
-venv:
-	$(PYTHON) -m venv $(VENV)
+$(VENV):
+	python3 -m venv $(VENV)
 
-install: venv
-	$(ACTIVATE) pip install --upgrade pip
-	$(ACTIVATE) pip install -r requirements.txt
+install: $(VENV)
+	$(PIP) install --upgrade pip
+	$(PIP) install -r requirements.txt
 
-proto:
-	$(ACTIVATE) python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. hello.proto
+$(GEN_PY): $(PROTO_NAME).proto
+	$(PY) -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. $(PROTO_NAME).proto
 
 run-server:
-	$(ACTIVATE) python server.py
+	$(PY) server.py
 
 run-client:
-	$(ACTIVATE) python client.py localhost 2000
+	$(PY) client.py localhost 2000
 
 clean:
-	rm -f hello_pb2.py hello_pb2_grpc.py
+	rm -f $(GEN_PY)
 	rm -rf __pycache__
 
 distclean: clean
