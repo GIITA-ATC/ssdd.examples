@@ -1,23 +1,23 @@
-PYTHON=python3
-VENV=venv
-ACTIVATE=. $(VENV)/bin/activate;
+VENV        := .venv
+PY          := $(VENV)/bin/python
+PIP         := $(VENV)/bin/pip
 
 .PHONY: all install run-server run-client clean distclean
 
 all: install
 
-venv:
-	$(PYTHON) -m venv $(VENV)
+$(VENV):
+	python3 -m venv $(VENV)
 
-install: venv
-	$(ACTIVATE) pip install --upgrade pip
-	$(ACTIVATE) pip install -r requirements.txt
+install: $(VENV)
+	$(PIP) install --upgrade pip
+	$(PIP) install -r requirements.txt
 
 run-server:
-	$(ACTIVATE) python server.py
+	$(PY) server.py
 
 run-client:
-	$(ACTIVATE) python client.py
+	$(PY) client.py
 
 clean:
 	rm -rf __pycache__
