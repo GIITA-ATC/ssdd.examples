@@ -1,7 +1,6 @@
 Depends
 -------
 
-- python3-paho-mqtt (deb)
 - mosquitto (deb)
 
 

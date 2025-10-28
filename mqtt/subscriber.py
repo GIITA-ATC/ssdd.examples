@@ -1,24 +1,34 @@
-#!/usr/bin/python3
-# -*- coding: utf-8; mode: python -*-
+#!/usr/bin/env python3
 
 import json
 import paho.mqtt.client as mqtt
 
-
-def callback(client, userdata, message):
-    decoded = json.loads(message.payload.decode())
-    print("topic: {}, msg: {}".format(
-        message.topic, decoded))
-
-    print(decoded["value"])
+TOPIC = "iotevents/+/#"  # '+' single-level, '#' multi-level
 
 
-subscriber = mqtt.Client()
-subscriber.on_message = callback
-subscriber.connect('localhost')
-subscriber.subscribe('iotevents/+/#')
+def on_message(client, userdata, msg):
+    try:
+        decoded = json.loads(msg.payload)
+        pretty = json.dumps(decoded, indent=2)
+        print(f"\nTopic: {msg.topic}\nPayload:\n{pretty}\n")
+
+    except json.JSONDecodeError:
+        print(f"[{msg.topic}] non-JSON payload: {msg.payload!r}")
+
+
+subscriber = mqtt.Client(
+    mqtt.CallbackAPIVersion.VERSION2,
+    protocol=mqtt.MQTTv5,
+)
+
+subscriber.on_message = on_message
+subscriber.on_disconnect = lambda *args: print("Disconnected.")
+subscriber.connect("localhost", 1883)
+subscriber.subscribe(TOPIC)
 
 try:
     subscriber.loop_forever()
 except KeyboardInterrupt:
-    pass
+    print("\nStopping subscriber...")
+finally:
+    subscriber.disconnect()
