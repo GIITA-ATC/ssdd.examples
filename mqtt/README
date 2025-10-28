@@ -1,22 +1,25 @@
-Depends
--------
+# MQTT Paho Example (Python)
+This example demonstrates a simple subscriber and publisher in Python using Paho MQTT.
 
-- mosquitto (deb)
+Following steps can be followed to set up and run the example. A Makefile is also provided with necessary commands.
 
+### 1. Setup virtualenv
+Follow the instruction provided in the root README.md to create and activate a virtual environment.
 
-Assure broker is running
-------------------------
+### 2. Run mosquitto broker
 
-$ sudo service mosquitto restart
+```bash
+sudo service mosquitto start
+```
 
+### 3. Run the gRPC server
 
-Run subscriber
---------------
+```bash
+python publisher.py
+```
 
-$ ./subscriber.py
+### 4. Run the client (in another terminal)
 
-
-Run publisher
--------------
-
-$ ./publisher-temperature.py
+```bash
+python subscriber.py
+```
