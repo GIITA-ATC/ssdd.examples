@@ -7,6 +7,7 @@ Following steps can be followed to set up and run the example. A Makefile is als
 Follow the instruction provided in the root README.md to create and activate a virtual environment.
 
 ### 2. Run mosquitto broker
+Install mosquitto with `sudo apt install mosquitto` if not already installed. Then start the mosquitto broker with:
 
 ```bash
 sudo service mosquitto start
