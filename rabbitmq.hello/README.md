@@ -50,12 +50,12 @@ rabbitmqadmin delete queue name=<queue-name>
 In one terminal, start the producer to send messages to the queue:
 
 ```bash
-python3 producer.py
+python producer.py
 ```
 
 ### 5. Run the consumer
 In another terminal, start the consumer to receive messages:
 
 ```bash
-python3 consumer.py
+python consumer.py
 ```

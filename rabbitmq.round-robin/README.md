@@ -44,18 +44,10 @@ You need **three terminals** — one for each participant:
 * **Terminal 3:** Producer
 
 ### 4. Run the workers
-Start two workers that will receive and process jobs from the queue.
-
-**Worker 1:**
+Start two workers that will receive and process jobs from the queue. In 2 separate terminals:
 
 ```bash
-python3 worker.py
-```
-
-**Worker 2:**
-
-```bash
-python3 worker.py
+python worker.py
 ```
 
 ### 5. Run the producer
@@ -63,7 +55,7 @@ python3 worker.py
 In another terminal, start the producer to send jobs to the queue:
 
 ```bash
-python3 producer.py <a_string_with_an_arbitrary_number_of_dots>
+python producer.py <a_string_with_an_arbitrary_number_of_dots>
 ```
 
 The **number of dots (".")** in each string determines how long the worker will take to process the job (in seconds).
@@ -71,7 +63,7 @@ The **number of dots (".")** in each string determines how long the worker will 
 Example:
 
 ```bash
-python3 producer.py job1.... job2. job3...
+python producer.py job1.... job2. job3...
 ```
 
 Interpretation:
@@ -89,3 +81,5 @@ Each worker will receive alternating messages:
  [W2] Received job2.
  [W1] Received job3...
 ```
+
+Change the value of `STRICT_ROUND_ROBIN` in `worker.py` to see how it affects message distribution.
