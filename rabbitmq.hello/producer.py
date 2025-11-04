@@ -11,7 +11,7 @@ channel = connection.channel()
 
 channel.queue_declare(queue="hello")
 
-message = "Hello world! {}".format(time.time())
+message = "Hello world!"
 
 channel.basic_publish(
     exchange='',
