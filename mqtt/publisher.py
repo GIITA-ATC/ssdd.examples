@@ -55,7 +55,7 @@ try:
         topic = f'iotevents/{reading_type}/{reading["identifier"]}'
 
         # At most once/maybe. QoS 1: at least once. QoS 2: exactly once
-        publish_info = publisher.publish(topic, payload, qos=1)
+        publish_info = publisher.publish(topic, payload, qos=0)
 
         print(f"Queued reading {publish_info.mid} ({publish_info.rc})")
         time.sleep(1)

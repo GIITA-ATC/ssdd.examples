@@ -11,6 +11,7 @@ Install mosquitto with `sudo apt install mosquitto` if not already installed. Th
 
 ```bash
 sudo service mosquitto start
+netstat -tuln | grep 1883
 ```
 
 ### 3. Run the gRPC server
