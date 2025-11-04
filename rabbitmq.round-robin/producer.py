@@ -9,15 +9,15 @@ localhost = pika.ConnectionParameters(host='localhost')
 connection = pika.BlockingConnection(localhost)
 channel = connection.channel()
 
-channel.queue_declare(queue='task_queue', durable=True)
+channel.queue_declare(queue='tasks', durable=True)  # Queue persistance
 
 for msg in sys.argv[1:]:
     channel.basic_publish(
         exchange='',
-        routing_key='task_queue',
+        routing_key='tasks',
         body=msg,
         properties=pika.BasicProperties(
-            delivery_mode=2  # make message persistent
+            delivery_mode=2  # Message persistance
         ))
 
     print(f'[x] Sent: {msg}')

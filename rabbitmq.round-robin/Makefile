@@ -15,10 +15,10 @@ install: $(VENV)
 	$(PIP) install -r requirements.txt
 
 run-consumer:
-	$(PY) consumer.py
+	$(PY) worker.py
 
 run-producer:
-	$(PY) producer.py T
+	$(PY) producer.py job1.... job2. job3...
 
 clean:
 	rm -rf __pycache__

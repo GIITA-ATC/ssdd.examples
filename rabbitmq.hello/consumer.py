@@ -25,5 +25,5 @@ print("[*] Waiting for messages. press Ctrl+C to exit")
 try:
     channel.start_consuming()
 except KeyboardInterrupt:
-    print("\Stopping consumer...")
+    print("\nStopping consumer...")
     connection.close()
