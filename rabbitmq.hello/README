@@ -1,32 +1,61 @@
-# Extracted from: http//www.rabbitmq.com/install-debian.html
+# RabbitMQ Example (Python)
+This example demonstrates a simple producer and consumer in Python using RabbitMQ and the Pika library:
 
-Install Debian/Ubuntu:
+```
+Producer (P)
+Consumer (C)
+Message queue: hello
 
-$ apt install rabbitmq-server # queue manager
-$ apt install python3-pika    # version 0.11.0
+P --> ||||||m3|m2|m1| --> C
+           hello
+```
 
-Admin plugin
+Following steps can be followed to set up and run the example. A Makefile is also provided with necessary commands.
 
-$ sudo rabbitmq-plugins enable rabbitmq_management
-$ sudo service rabbitmq-server restart
+### 1. Setup virtualenv
 
-And now you can use rabbitmqadmin
+Follow the instruction provided in the root README.md to create and activate a virtual environment.
 
-$ rabbitmqadmin list queues
-$ rabbitmqadmin delete queue name=<queue-name>
+### 2. Install and start RabbitMQ broker
+Install RabbitMQ if not already installed:
 
-System overview:
-	Producer (P)
-	Consumer (C)
-	Message queue: hello
+```bash
+sudo apt install rabbitmq-server
+```
 
-	P --> ||||||m3|m2|m1| --> C
-		hello
+Then start the RabbitMQ broker:
 
-Consumer:
+```bash
+sudo service rabbitmq-server start
+```
 
-	$ python3 consumer.py
+To enable the web-based management interface:
 
-Producer:
+```bash
+sudo rabbitmq-plugins enable rabbitmq_management
+sudo service rabbitmq-server restart
+```
 
-	$ python3 producer.py
+You can now access the management dashboard at:
+**[http://localhost:15672](http://localhost:15672)**
+(Default credentials: `guest` / `guest`)
+
+### 3. Check queues using rabbitmqadmin (optional)
+```bash
+rabbitmqadmin list queues
+rabbitmqadmin delete queue name=<queue-name>
+```
+
+### 4. Run the producer
+In one terminal, start the producer to send messages to the queue:
+
+```bash
+python3 producer.py
+```
+
+### 5. Run the consumer
+In another terminal, start the consumer to receive messages:
+
+```bash
+python3 consumer.py
+```
