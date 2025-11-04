@@ -1,53 +1,117 @@
-# Extracted from: //www.rabbitmq.com/install-debian.html
+# RabbitMQ Topic Example (Python)
+This example demonstrates a **publish/subscribe** pattern using a **topic exchange** in RabbitMQ with the Pika library.
+A single publisher sends messages (tweets) with a **routing key**, and multiple subscribers receive only those tweets that match their specific **binding key patterns**.
 
-Install Debian/Ubuntu:
+### 1. Setup virtualenv
+Follow the instruction provided in the root README.md to create and activate a virtual environment.
 
-- apt install rabbitmq-server # queue manager
-- apt install pika            # version 0.11.0
+### 2. Install and start RabbitMQ broker
+Install RabbitMQ and the Python client library if not already installed:
 
-Description: 1 publisher publish a tweet with routing_key and n subscribers receive only the tweets
-that match a given pattern or binding_key
+```bash
+sudo apt install rabbitmq-server
+```
 
-System overview:
-	publisher (P)
-	subscriber1 (S1)
-	subscriber2 (S2)
-	exchange (E)
-	Message queues:
-		twitter-pattern1 (S1)
-		twitter-pattern2 (S2)
+Then start the RabbitMQ broker:
 
+```bash
+sudo service rabbitmq-server start
+```
 
-	binding_key
-P --> E ------>	|||||||t3|t2|t1| 	--> S1 gets t1, t2
-      |	     twitter1
-      |----->	|||||||t3|t2|t1| 	--> S2 gets t1, t3
-	binding_key  twitter2
+To enable the web-based management interface:
 
-Observations:
-	You need three consoles, one for each participant
+```bash
+sudo rabbitmq-plugins enable rabbitmq_management
+sudo service rabbitmq-server restart
+```
 
-subscriber1:
-	python3 subscriber.py <binding_key>
+You can now access the management dashboard at:
+**[http://localhost:15672](http://localhost:15672)**
+(Default credentials: `guest` / `guest`)
 
-subscriber2:
-	python3 subscriber.py <binding_key>
+### 3. System overview
+This example uses a **topic exchange** named `tweets`.
+A topic exchange routes messages based on **routing keys** and **binding key patterns**, allowing subscribers to receive only the messages relevant to them.
+
+```
+Publisher (P)
+Subscriber 1 (S1)
+Subscriber 2 (S2)
+Exchange (E) - type: topic
+Message queues:
+    twitter-pattern1 (S1)
+    twitter-pattern2 (S2)
+
+             binding_key
+P --> E ------>  |||||||t3|t2|t1|  --> S1 gets t1, t2
+      |      twitter1
+      |----->  |||||||t3|t2|t1|  --> S2 gets t1, t3
+             binding_key  twitter2
+```
+
+You will need **three terminals**, one for each participant:
+
+* **Terminal 1:** Subscriber 1
+* **Terminal 2:** Subscriber 2
+* **Terminal 3:** Publisher
+
+### 4. Run the subscribers
+Start each subscriber specifying a **binding key pattern** that determines which tweets they will receive.
+
+```bash
+python subscriber.py <binding_key>
+```
 
 where:
-	binding_key: a pattern in the format "word1.word2. ... .wordn"
-	word1, word2, wordn could use wildcards
-	(Examples: python3 subscriber.py tweets.*johndoe.*)
 
-publisher:
-	python3 publisher.py <routing_key> <my_tweet>
+* `binding_key` follows the format:
+  `"word1.word2....wordN"`
+* You can use wildcards in the binding key:
+
+  * `*` matches **exactly one word**
+  * `#` matches **zero or more words**
+
+**Examples:**
+
+```bash
+python subscriber.py "tweets.*.johndoe"
+python subscriber.py "tweets.#"
+python subscriber.py "*.sports.*"
+```
+
+### 5. Run the publisher
+In another terminal, start the publisher to send tweets with a **routing key**:
+
+```bash
+python3 publisher.py <routing_key> "<my_tweet>"
+```
 
 where:
-	routing_key: a list of words delimited by dots in the format "word1.word2. ... .wordn"
-	(Example: python3 publisher.py "tweets.johndoe.multimedia" "Hello world ...")
 
+* `routing_key` is a dot-delimited list of words:
+  `"word1.word2....wordN"`
 
-Example:
-	   python3 publisher.py "hoy.cr" "Ven gratis al cine"
-	   python3 publisher.py "mañana.madrid" "Ven al teatro por 10 euros"
-	   python3 subscriber.py "*.madrid"
-	   python3 subscriber.py "hoy.*"
+**Example:**
+
+```bash
+python3 publisher.py "tweets.johndoe.multimedia" "Hello world ..."
+```
+
+### 6. Example scenario
+
+You can experiment as follows:
+
+```bash
+python subscriber.py "*.madrid"
+python subscriber.py "hoy.*"
+
+python publisher.py "hoy.cr" "Ven gratis al cine"
+python publisher.py "mañana.madrid" "Ven al teatro por 10 euros"
+```
+
+In this case:
+
+* Subscriber with `*.madrid` receives only `"Ven al teatro por 10 euros"`.
+* Subscriber with `hoy.*` receives only `"Ven gratis al cine"`.
+
+Each subscriber receives only the messages whose **routing keys** match their **binding patterns**, demonstrating flexible message filtering using the `topic` exchange type.
