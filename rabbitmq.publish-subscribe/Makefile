@@ -15,10 +15,10 @@ install: $(VENV)
 	$(PIP) install -r requirements.txt
 
 run-consumer:
-	$(PY) consumer.py
+	$(PY) subscriber.py
 
 run-producer:
-	$(PY) producer.py
+	$(PY) publisher.py
 
 clean:
 	rm -rf __pycache__

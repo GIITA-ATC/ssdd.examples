@@ -24,8 +24,9 @@ if not STRICT_ROUND_ROBIN:
     channel.basic_qos(prefetch_count=1)  # Not new msg until ACK
 
 channel.basic_consume(
+    queue='tasks',
     on_message_callback=callback,
-    queue='tasks'
+    auto_ack=False,
 )
 
 print("[*] Waiting for messages. Press Ctrl+C to exit")

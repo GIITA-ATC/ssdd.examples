@@ -16,8 +16,8 @@ channel.queue_declare(queue='hello')
 
 channel.basic_consume(
     queue='hello',
-    auto_ack=True,
     on_message_callback=callback,
+    auto_ack=True,  # No wait for ack from the consumer
 )
 
 print("[*] Waiting for messages. press Ctrl+C to exit")
