@@ -2,7 +2,6 @@
 # Extracted from: https://www.rabbitmq.com/tutorials/tutorial-one-python.html
 
 import pika
-import time
 
 
 localhost = pika.ConnectionParameters(host='localhost')
