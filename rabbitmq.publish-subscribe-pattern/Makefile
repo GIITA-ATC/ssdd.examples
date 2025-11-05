@@ -15,11 +15,11 @@ install: $(VENV)
 	$(PIP) install -r requirements.txt
 
 run-consumer:
-	$(PY) subscriber.py ana.*
+	$(PY) subscriber.py *.text
 
 run-producer:
-	$(PY) publisher.py "ana.text" "Ven gratis al cine"
-	$(PY) publisher.py "ana.multimedia" "Ven al teatro por 10 euros"
+	$(PY) publisher.py "ana.text" "Hello world!"
+	$(PY) publisher.py "ana.multimedia" "<photo data>"
 
 clean:
 	rm -rf __pycache__
