@@ -102,16 +102,16 @@ python3 publisher.py "tweets.johndoe.multimedia" "Hello world ..."
 You can experiment as follows:
 
 ```bash
-python subscriber.py "*.madrid"
-python subscriber.py "hoy.*"
+python subscriber.py "*.text"
+python subscriber.py "ana.*"
 
-python publisher.py "hoy.cr" "Ven gratis al cine"
-python publisher.py "mañana.madrid" "Ven al teatro por 10 euros"
+python publisher.py "ana.text" "Hello world!"
+python publisher.py "ana.multimedia" "<photo data>"
 ```
 
 In this case:
 
-* Subscriber with `*.madrid` receives only `"Ven al teatro por 10 euros"`.
-* Subscriber with `hoy.*` receives only `"Ven gratis al cine"`.
+* Subscriber with `*.text` receives only `"Hello world!"`.
+* Subscriber with `ana.*` receives both `"Hello world!"` and `"<photo data>"`.
 
 Each subscriber receives only the messages whose **routing keys** match their **binding patterns**, demonstrating flexible message filtering using the `topic` exchange type.
