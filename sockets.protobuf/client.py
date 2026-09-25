@@ -5,7 +5,7 @@ import socket
 import sensor_pb2
 
 if len(sys.argv) < 2:
-    print('Usage: ./uddp-client.py <host>')
+    print('Usage: ./udp-client.py <host>')
     exit()
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
