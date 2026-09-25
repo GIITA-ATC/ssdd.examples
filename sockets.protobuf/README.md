@@ -8,7 +8,7 @@ Instalar
 Generar stubs
 -------------
 
-$ protoc -I . --python_out=. sensor.proto
+$ python3 -m grpc_tools.protoc -I=. --python_out=. sensor.proto
 
 
 Run server
