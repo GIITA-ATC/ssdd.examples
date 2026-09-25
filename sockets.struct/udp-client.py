@@ -1,6 +1,8 @@
 #!/usr/bin/python3
+"Usage: {} <host>"
 
 import sys
+import os
 import socket
 import struct
 
@@ -13,11 +15,12 @@ ACCELERATION = 3
 def serialize_reading(id_, type_, value, unit):
     unit = unit.encode()
     unit_len = len(unit)
-    return struct.pack('!hBfB{}s'.format(unit_len), id_, type_, value, unit_len, unit)
+    return struct.pack(
+        '!hBfB{}s'.format(unit_len), id_, type_, value, unit_len, unit)
 
 
 if len(sys.argv) != 2:
-    print(__doc__.format(__file__))
+    print(__doc__.format(os.path.basename(__file__)))
     sys.exit(1)
 
 
