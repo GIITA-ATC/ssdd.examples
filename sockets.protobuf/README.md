@@ -14,12 +14,12 @@ $ python3 -m grpc_tools.protoc -I=. --python_out=. sensor.proto
 Run server
 ----------
 
-% ./udp-server.py
+% ./server.py
 
 
 Run client
 ----------
 
-% ./udp-client.py localhost
+% ./client.py localhost
 
 .
