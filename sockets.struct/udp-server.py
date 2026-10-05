@@ -8,7 +8,7 @@ def deserialize_reading(data):
     format_ = "!hBfB"
     fixed = struct.calcsize(format_)
     id_, type_, value, unit_len = struct.unpack(format_, data[:fixed])
-    unit = data[fixed:][:unit_len]
+    unit = data[fixed:][:unit_len]  # Second slice ensures we only take the unit_len bytes
     return id_, type_, value, unit.decode()
 
 
