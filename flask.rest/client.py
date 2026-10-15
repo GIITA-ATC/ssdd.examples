@@ -3,10 +3,10 @@
 from requests import put, get
 
 put(
-    'http://localhost:5000/light1',
+    'http://localhost:5001/light1',
     data={'status': 'enabled'}
 )
 
-response = get('http://localhost:5000/light1')
+response = get('http://localhost:5001/light1')
 
 print(response.json())
