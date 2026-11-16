@@ -1,6 +1,6 @@
 .PHONY: all run-registry run-server run-client clean
 
-SERVER_HOST ?= 192.168.1.34
+SERVER_HOST ?= localhost
 
 all: Server.class Client.class Hello.class
 
